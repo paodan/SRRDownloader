@@ -1,0 +1,18 @@
+Package: SRRDownloader
+Title: Download Raw Fastq Files from SRA Database.
+Version: 1.0.0
+Authors@R: 
+    person(given = "Weiyang",
+           family = "Tao",
+           role = c("aut", "cre"),
+           email = "weiyangtao1513@gmail.com")
+Description: This package is to download fastq files from SRA database according to 
+the SRR accession IDs. In addition, by providing a bioProject accession ID, this 
+package can obtain the SRR accession IDs within this project. Last but not the 
+least, users can search bioProject accession IDs using keywords.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    funcTools,
+    rstudioapi
