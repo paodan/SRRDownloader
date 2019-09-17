@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1568734057669.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "AA2A1693",
+    "lastKnownWriteTime" : 1568734421,
+    "last_content_update" : 1568734421596,
+    "path" : "/data/Github/SRRDownloader/SRRDownloader/R/searchSrrID.R",
+    "project_path" : "R/searchSrrID.R",
+    "properties" : {
+        "cursorPosition" : "13,37",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
