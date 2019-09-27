@@ -52,7 +52,9 @@ fastGeoSubmission = function(fileNames, destDir, geoFTP = "ftp-private.ncbi.nlm.
 
       rstudioapi::jobRunScript(rfile)
     }
-    Sys.sleep(sleepSecond)
+    if (ni != tail(seq(1, len, by = nPerBatch), 1)){
+      Sys.sleep(sleepSecond)
+    }
   }
   return(invisible(NULL))
 }
