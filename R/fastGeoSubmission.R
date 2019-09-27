@@ -30,7 +30,7 @@ fastGeoSubmission = function(fileNames, destDir, geoFTP = "ftp-private.ncbi.nlm.
     stop("fileNames must be not empty.")
   }
 
-  if(system("which ncftpput", intern = T) < 0){
+  if(length(system("which ncftpput", intern = T)) < 0){
     stop("Please install ncft by following command in bash:\n\n (sudo) apt-get install ncft\n\n")
   }
 
