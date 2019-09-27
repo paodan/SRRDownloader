@@ -22,7 +22,8 @@ Platform, Model, SRAStudy, BioProject, Study_Pubmed_id, ProjectID, Sample,
 BioSample, SampleType, TaxID, ScientificName, SampleName, g1k_pop_code, source,
 g1k_analysis_group, Subject_ID, Sex, Disease, Tumor, Affection_Status, Analyte_Type,
 Histological_Type, Body_Site, CenterName, Submission, dbgap_study_accession,
-Consent, RunHash, and ReadHash.
+Consent, RunHash, and ReadHash.\cr
+Please note RunHash and ReadHash are not MD5SUM of each file.
 }
 \description{
 Search SRR accession IDs using projectID
