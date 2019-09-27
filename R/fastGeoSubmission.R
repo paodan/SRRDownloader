@@ -15,7 +15,14 @@
 #' This password can be found in GEO File Transfer Protocol.
 #' @param nPerBatch the number of uploading process in each batch. Default is 10.
 #' @param sleepSecond the time (in second) to wait after each batch. Default is 100 (seconds).
-#'
+#' @export
+#' @examples {
+#' \dontrun{
+#' # Upload files in "./tmp" folder to "ftpDir"
+#' files = dir("./tmp", full.names = T)
+#' fastGeoSubmission(files, "ftpDir")
+#' }
+#' }
 fastGeoSubmission = function(fileNames, destDir, geoFTP = "ftp-private.ncbi.nlm.nih.gov",
                              geoPassword = "33%9uyj_fCh?M16H", nPerBatch = 10, sleepSecond = 100){
   len = length(fileNames)
@@ -46,6 +53,7 @@ fastGeoSubmission = function(fileNames, destDir, geoFTP = "ftp-private.ncbi.nlm.
     }
     Sys.sleep(sleepSecond)
   }
+  return(invisible(NULL))
 }
 
 

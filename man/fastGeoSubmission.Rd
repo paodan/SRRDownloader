@@ -34,3 +34,12 @@ This password can be found in GEO File Transfer Protocol.}
 The detailed submission process can be found in GEO File Transfer Protocol:
 https://www.ncbi.nlm.nih.gov/geo/info/submissionftp.html.
 }
+\examples{
+{
+\dontrun{
+# Upload files in "./tmp" folder to "ftpDir"
+files = dir("./tmp", full.names = T)
+fastGeoSubmission(files, "ftpDir")
+}
+}
+}
