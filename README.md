@@ -129,7 +129,7 @@ The numbers of rows are different, meaning that the pipeline that is used to gen
 
 ### Download fastq files from SRA database
 
-Before downloading fastq files, it's better to know the meaning of following IDs:
+Before downloading fastq files, it's better to know the names of following IDs:
 
 - Platform ID: GPL***** (for example GPL17021)
 
@@ -149,17 +149,37 @@ Before downloading fastq files, it's better to know the meaning of following IDs
 
 - BioProject ID: PRJNA****** (for example PRJNA290485)
 
+#### sra-tools
+
+SRRDownloader package uses [`sra-tools`](https://github.com/ncbi/sra-tools/wiki/) to download the fastq files by providing the SRA Run IDs. So the very first step is to install `sra-tools`. Installing `sra-tools` is OS-dependent. 
+
+For Debian and Ubuntu users, you can type: apt install sra-toolkit in your command line to install the toolkit. You can read more about SRA toolkit [here](https://www.ncbi.nlm.nih.gov/books/NBK242621/) and at their [github](https://github.com/ncbi/sra-tools) repo.
 
 
-SRRDownloader package uses [`sra-tools`](https://github.com/ncbi/sra-tools/wiki/) to download the fastq files by providing the SRA accession IDs. So the very first step is to install `sra-tools`. Installing `sra-tools` is OS-dependent. 
 
 Please use the following command to check how to install `sra-tools`.
+```
+
+```
+
+
+#### Entrez Direct
+
+It's optional to use pure command lines to get the work done. It can be achieved 
+by using Entrez Direct ([EDirect](https://www.ncbi.nlm.nih.gov/books/NBK179288/)) -- E-utilities on the Unix Command Line.
+
+
+Please use the following R command to check if you have installed or how to install `EDirect`.
 
 ```r
 installSRRDownloader()
 ```
 
-For Debian and Ubuntu users, you can type: apt install sra-toolkit in your command line to install the toolkit. You can read more about SRA toolkit [here](https://www.ncbi.nlm.nih.gov/books/NBK242621/) and at their [github](https://github.com/ncbi/sra-tools) repo.
+If you are using anaconda, to install this package run the following command in a bash terminal:
+
+```console
+foo@bar:~$ conda install -c bioconda entrez-direct
+```
 
 
 
