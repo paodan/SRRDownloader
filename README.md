@@ -129,7 +129,37 @@ The numbers of rows are different, meaning that the pipeline that is used to gen
 
 ### Download fastq files from SRA database
 
-To be continued ...
+Before downloading fastq files, it's better to know the meaning of following IDs:
+
+- Platform ID: GPL***** (for example GPL17021)
+
+- GEO Accession ID: GSE***** (for example GSE71165)
+
+- GEO Sample Name ID: GSM******* (for example GSM1828772)
+
+- SRA ? ID: SRS******* (for example SRS1008583)
+
+- SRA Run ID: SRR******* (for example SRR2121685)
+
+- SRA Study ID: SRP****** (for example SRP061381)
+
+- SRA Experiment ID: SRX******* (for example SRX1114423)
+
+- BioSample ID: SAMN******** (for example SAMN03892459)
+
+- BioProject ID: PRJNA****** (for example PRJNA290485)
+
+
+
+SRRDownloader package uses [`sra-tools`](https://github.com/ncbi/sra-tools/wiki/) to download the fastq files by providing the SRA accession IDs. So the very first step is to install `sra-tools`. Installing `sra-tools` is OS-dependent. 
+
+Please use the following command to check how to install `sra-tools`.
+
+```r
+installSRRDownloader()
+```
+
+For Debian and Ubuntu users, you can type: apt install sra-toolkit in your command line to install the toolkit. You can read more about SRA toolkit [here](https://www.ncbi.nlm.nih.gov/books/NBK242621/) and at their [github](https://github.com/ncbi/sra-tools) repo.
 
 
 
