@@ -149,23 +149,73 @@ Before downloading fastq files, it's better to know the names of following IDs:
 
 - BioProject ID: PRJNA****** (for example PRJNA290485)
 
+
 #### sra-tools
 
-SRRDownloader package uses [`sra-tools`](https://github.com/ncbi/sra-tools/wiki/) to download the fastq files by providing the SRA Run IDs. So the very first step is to install `sra-tools`. Installing `sra-tools` is OS-dependent. 
+SRRDownloader package uses [`sra-tools`](https://github.com/ncbi/sra-tools/wiki/) to download the fastq files by providing the SRA Run IDs. So the very first step is to install `sra-tools`. Installing `sra-tools` is OS-dependent. You can read more about SRA toolkit [here](https://www.ncbi.nlm.nih.gov/books/NBK242621/) and at their [github](https://github.com/ncbi/sra-tools) repo.
 
-For Debian and Ubuntu users, you can type: apt install sra-toolkit in your command line to install the toolkit. You can read more about SRA toolkit [here](https://www.ncbi.nlm.nih.gov/books/NBK242621/) and at their [github](https://github.com/ncbi/sra-tools) repo.
+You can follow these steps to install the toolkit. 
 
+**For Windows**:
 
+1. Download the sratoolkit.current-win64.zip file from this [link](https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-win64.zip)
 
-Please use the following command to check how to install `sra-tools`.
+2. Extract it to your desktop, for example
+
+3. Open a command shell, for example Start/Run `cmd.exe`
+
+4. `cd` to the directory you extracted the zip file to, for example Desktop
+
+5. `cd bin`
+
+6. Proceed to the [Quick Configuration Guide](https://github.com/ncbi/sra-tools/wiki/03.-Quick-Toolkit-Configuration)
+
+7. Test that the toolkit is functional:
+
+```console
+fastq-dump --stdout -X 2 SRR390728
 ```
 
+Within a few seconds, the command should produce this exact output (and nothing else):
+
+```console
+Read 2 spots for SRR390728
+Written 2 spots for SRR390728
+@SRR390728.1 1 length=72
+CATTCTTCACGTAGTTCTCGAGCCTTGGTTTTCAGCGATGGAGAATGACTTTGACAAGCTGAGAGAAGNTNC
++SRR390728.1 1 length=72
+;;;;;;;;;;;;;;;;;;;;;;;;;;;9;;665142;;;;;;;;;;;;;;;;;;;;;;;;;;;;;96&&&&(
+@SRR390728.2 2 length=72
+AAGTAGGTCTCGTCTGTGTTTTCTACGAGCTTGTGTTCCAGCTGACCCACTCCCTGGGTGGGGGGACTGGGT
++SRR390728.2 2 length=72
+;;;;;;;;;;;;;;;;;4;;;;3;393.1+4&&5&&;;;;;;;;;;;;;;;;;;;;;<9;<;;;;;464262
 ```
+
+
+**For Debian and Ubuntu**:
+
+```console
+foo@bar:~$ apt install sra-toolkit
+```
+
+**For MAC OS X**:
+
+```console
+foo@bar:~$ # 1. Fetch the tar file from the canonical location at NCBI:
+foo@bar:~$ curl --output sratoolkit.tar.gz https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-mac64.tar.gz
+foo@bar:~$ 2. Extract the contents of the tar file:
+foo@bar:~$ tar -vxzf sratoolkit.tar.gz
+foo@bar:~$ 3. For convenience (and to show you where the binaries are) append the path to the binaries to your PATH environment variable (the version number may be different):
+foo@bar:~$ export PATH=$PATH:$PWD/sratoolkit.3.0.0-mac64/bin
+foo@bar:~$ 4. Verify that the binaries will be found by the shell:
+foo@bar:~$ which fastq-dump
+```
+Follow the step 6-7 in **For Windows** section.
 
 
 #### Entrez Direct
 
-It's optional to use pure command lines to get the work done. It can be achieved 
+It's optional to use pure command lines to search the SRA Run IDs. It can be achieved 
 by using Entrez Direct ([EDirect](https://www.ncbi.nlm.nih.gov/books/NBK179288/)) -- E-utilities on the Unix Command Line.
 
 
