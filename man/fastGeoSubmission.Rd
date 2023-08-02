@@ -4,10 +4,14 @@
 \alias{fastGeoSubmission}
 \title{Submit data files to GEO database by sftp in a fast way, using ncft.}
 \usage{
-fastGeoSubmission(fileNames, destDir,
+fastGeoSubmission(
+  fileNames,
+  destDir,
   geoFTP = "ftp-private.ncbi.nlm.nih.gov",
-  geoPassword = "33\%9uyj_fCh?M16H", nPerBatch = 10,
-  sleepSecond = 100)
+  geoPassword = "33\%9uyj_fCh?M16H",
+  nPerBatch = 10,
+  sleepSecond = 100
+)
 }
 \arguments{
 \item{fileNames}{a vector of filenames with full path name to submit}

@@ -11,7 +11,7 @@ Instruction to install prerequisite softwares.
 }
 \examples{
 {
-\\donotrun{
+\donotrun{
 installSRRDownloader()
 }
 }

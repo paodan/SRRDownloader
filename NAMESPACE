@@ -2,8 +2,12 @@
 
 export(downloadSrr)
 export(fastGeoSubmission)
+export(getSupplementaryData)
 export(installSRRDownloader)
+export(readTarFile)
 export(searchProjectID)
 export(searchSrrID)
 import(funcTools)
 import(rstudioapi)
+import(rvest)
+importFrom(tools,file_ext)

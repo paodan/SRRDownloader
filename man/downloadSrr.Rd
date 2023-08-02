@@ -4,8 +4,12 @@
 \alias{downloadSrr}
 \title{Download fastq files from SRA database by providing SRR accession IDs.}
 \usage{
-downloadSrr(srrIDs = c("SRR9063863", "SRR9063864"), timeout = 3600 *
-  12, OutDir = "./", multipleDownload = 1)
+downloadSrr(
+  srrIDs = c("SRR9063863", "SRR9063864"),
+  timeout = 3600 * 12,
+  OutDir = "./",
+  multipleDownload = 1
+)
 }
 \arguments{
 \item{srrIDs}{character, the SRR accession ID to download. This ID can be searched by

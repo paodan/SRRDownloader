@@ -1,6 +1,6 @@
 Package: SRRDownloader
 Title: Download Raw Fastq Files from SRA Database.
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: 
     person(given = "Weiyang",
            family = "Tao",
@@ -17,5 +17,7 @@ Language: en
 LazyData: true
 Imports: 
     funcTools,
-    rstudioapi
-RoxygenNote: 6.1.1
+    rstudioapi,
+    tools,
+    rvest
+RoxygenNote: 7.1.1

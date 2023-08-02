@@ -3,7 +3,7 @@ Author: Weiyang Tao
 
 Email: weiyangtao1513@gmail.com
 
-Date: 2023-07-28
+Date: 2023-08-02
 
 ------
 
@@ -78,8 +78,24 @@ fd2  # No probes data (none)
 
 ```
 
-### Download expression data files
-Because GEOquery package does not get the expression data, now we need to manually download expression data, which is stored in GSE130567_RAW.tar file (https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE130567&format=file). First, we download GSE130567_RAW.tar file into a temporary folder, and uncompressed it to obtain the expression file name for each sample (in total 24 samples). 
+### Download expression data files and read expression files
+Because GEOquery package does not get the expression data, now we need to manually download expression data, which is stored in GSE130567_RAW.tar file (https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE130567&format=file). First, we download GSE130567_RAW.tar file into a temporary folder, and uncompressed it to obtain the expression file name for each sample (in total 24 samples). Then we need to one-by-one read the files. The `SRRDownloader` package provide a function `getSupplementary` to download and read the supplementary file in one go.
+
+```r
+library(SRRDownloader)
+supp = getSupplementaryData("GSE130567", header = FALSE)
+dat = supp$data
+names(dat) = sapply(strsplit(names(dat), "_"), "[", 1)
+
+edata1 = do.call(cbind, dat[1:12])
+edata2 = do.call(cbind, dat[13:24])
+
+# The numbers of rows are different
+nrow(edata1)
+nrow(edata2)
+```
+
+Alternatively, you can read it manually, but it is much more complicated.
 ```r
 # temporary folder name and file name
 tmpFolder = tempdir()
@@ -100,12 +116,8 @@ filesFull = file.path(folder, files)
 # 24 samples
 length(filesFull)
 filesFull
-```
 
-### Read expression files
-According to the previous results, there are 24 files compressed in GSE130567_RAW.tar file. We need to one-by-one read the files.
-
-```r
+# Read the expression data
 dat = list()
 for (file in filesFull){
   accID = gsub(".*(GSM\\d{7}).*", "\\1", file)
@@ -116,6 +128,8 @@ for (file in filesFull){
   colnames(zzdata) = accID
   dat = c(dat, list(zzdata))
 }
+
+
 edata1 = do.call(cbind, dat[1:12])
 edata2 = do.call(cbind, dat[13:24])
 
@@ -125,38 +139,38 @@ nrow(edata2)
 ```
 
 
-The numbers of rows are different, meaning that the pipeline that is used to generate the raw read counts for the first 12 samples are different from the one for the last 12 samples. So we may need to download the fastq files and use the same pipeline to get the same number of rows of raw read counts if we want to compare 24 samples. And this is the objective of this package (SRRDownloader).
+The numbers of rows of `edata1` and `edata2` are different, meaning that the pipeline that is used to generate the raw read counts in the original paper for the first 12 samples are different from the one for the last 12 samples. So we may need to download the fastq files and use the same pipeline to get the same number of rows of raw read counts if we want to compare 24 samples. And this is the objective of this package (SRRDownloader).
 
 ### Download fastq files from SRA database
 
 Before downloading fastq files, it's better to know the names of following IDs:
 
-- Platform ID: GPL***** (for example GPL17021)
+- Platform ID: `GPL*****` (for example GPL17021)
 
-- GEO Accession ID: GSE***** (for example GSE71165)
+- GEO Accession ID: `GSE*****` (for example GSE71165)
 
-- GEO Sample Name ID: GSM******* (for example GSM1828772)
+- GEO Sample Name ID: `GSM*******` (for example GSM1828772)
 
-- SRA ? ID: SRS******* (for example SRS1008583)
+- SRA ? ID: `SRS*******` (for example SRS1008583)
 
-- SRA Run ID: SRR******* (for example SRR2121685)
+- SRA Run ID: `SRR*******` (for example SRR2121685)
 
-- SRA Study ID: SRP****** (for example SRP061381)
+- SRA Study ID: `SRP******` (for example SRP061381)
 
-- SRA Experiment ID: SRX******* (for example SRX1114423)
+- SRA Experiment ID: `SRX*******` (for example SRX1114423)
 
-- BioSample ID: SAMN******** (for example SAMN03892459)
+- BioSample ID: `SAMN********` (for example SAMN03892459)
 
-- BioProject ID: PRJNA****** (for example PRJNA290485)
+- BioProject ID: `PRJNA******` (for example PRJNA290485)
 
 
-#### sra-tools
+#### How to install sra-tools
 
-SRRDownloader package uses [`sra-tools`](https://github.com/ncbi/sra-tools/wiki/) to download the fastq files by providing the SRA Run IDs. So the very first step is to install `sra-tools`. Installing `sra-tools` is OS-dependent. You can read more about SRA toolkit [here](https://www.ncbi.nlm.nih.gov/books/NBK242621/) and at their [github](https://github.com/ncbi/sra-tools) repo.
+`SRRDownloader` package uses [`sra-tools`](https://github.com/ncbi/sra-tools/wiki/) to download the fastq files by providing the SRA Run IDs (`SRR*******`, this is where the name of the package comes from). So the very first step is to install `sra-tools`. Installing `sra-tools` is OS-dependent. You can read more about SRA toolkit [here](https://www.ncbi.nlm.nih.gov/books/NBK242621/) and at their [github](https://github.com/ncbi/sra-tools) repo.
 
 You can follow these steps to install the toolkit. 
 
-**For Windows**:
+##### - For Windows
 
 1. Download the sratoolkit.current-win64.zip file from this [link](https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-win64.zip)
 
@@ -192,31 +206,37 @@ AAGTAGGTCTCGTCTGTGTTTTCTACGAGCTTGTGTTCCAGCTGACCCACTCCCTGGGTGGGGGGACTGGGT
 ```
 
 
-**For Debian and Ubuntu**:
+##### - For Debian and Ubuntu
+
+Use the following command:
 
 ```console
-foo@bar:~$ apt install sra-toolkit
+apt install sra-toolkit
 ```
 
-**For MAC OS X**:
+##### - For MAC OS X
+
+Use the following command:
 
 ```console
-foo@bar:~$ # 1. Fetch the tar file from the canonical location at NCBI:
-foo@bar:~$ curl --output sratoolkit.tar.gz https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-mac64.tar.gz
-foo@bar:~$ 2. Extract the contents of the tar file:
-foo@bar:~$ tar -vxzf sratoolkit.tar.gz
-foo@bar:~$ 3. For convenience (and to show you where the binaries are) append the path to the binaries to your PATH environment variable (the version number may be different):
-foo@bar:~$ export PATH=$PATH:$PWD/sratoolkit.3.0.0-mac64/bin
-foo@bar:~$ 4. Verify that the binaries will be found by the shell:
-foo@bar:~$ which fastq-dump
+# 1. Fetch the tar file from the canonical location at NCBI:
+curl --output sratoolkit.tar.gz https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-mac64.tar.gz
+# 2. Extract the contents of the tar file:
+tar -vxzf sratoolkit.tar.gz
+# 3. For convenience (and to show you where the binaries are) append the path to the binaries to your PATH environment variable (the version number may be different), and add it to ~/.bash_profile file:
+export PATH=$PATH:$PWD/sratoolkit.3.0.0-mac64/bin
+# 4. Verify that the binaries will be found by the shell:
+which fastq-dump
 ```
 Follow the step 6-7 in **For Windows** section.
 
 
-#### Entrez Direct
+<br>
 
-It's optional to use pure command lines to search the SRA Run IDs. It can be achieved 
-by using Entrez Direct ([EDirect](https://www.ncbi.nlm.nih.gov/books/NBK179288/)) -- E-utilities on the Unix Command Line.
+#### How to install Entrez Direct tool
+
+Getting SRA Run IDs requires you searching in GEO database. You might ask if there is any tool that can search the SRA Run IDs using command lines. The answer is YES, you can search SRA Run IDs
+by using Entrez Direct ([EDirect](https://www.ncbi.nlm.nih.gov/books/NBK179288/)) -- E-utilities on the Unix Command Line. But this is optional for the use of `SRRDownloader` package.
 
 
 Please use the following R command to check if you have installed or how to install `EDirect`.
@@ -225,11 +245,40 @@ Please use the following R command to check if you have installed or how to inst
 installSRRDownloader()
 ```
 
-If you are using anaconda, to install this package run the following command in a bash terminal:
 
+EDirect will run on Unix and Macintosh computers, and under the Cygwin Unix-emulation environment on Windows PCs. To install the EDirect software, open a terminal window and execute one of the following two commands:
 ```console
-foo@bar:~$ conda install -c bioconda entrez-direct
+sh -c "$(curl -fsSL https://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/install-edirect.sh)"
+
+sh -c "$(wget -q https://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/install-edirect.sh -O -)"
+```
+This will download a number of scripts and several precompiled programs into an "edirect" folder in the user's home directory. It may then print an additional command for updating the PATH environment variable in the user's configuration file. The editing instructions will look something like:
+
+```
+echo "export PATH=\$HOME/edirect:\$PATH" >> $HOME/.bash_profile
 ```
 
+As a convenience, the installation process ends by offering to run the PATH update command for you. Answer "y" and press the Return key if you want it run. If the PATH is already set correctly, or if you prefer to make any editing changes manually, just press Return.
+
+One installation is complete, run:
+
+```console
+export PATH=${HOME}/edirect:${PATH}
+```
+to set the PATH for the current terminal session.
+
+<br>
+*Or if you are using anaconda, to install this package by simply running the following command in a bash terminal:*
+
+```console
+conda install -c bioconda entrez-direct
+```
+
+<br>
+Now you have finished installing tools for downloading and searching. Let's download an example fastq file into the current folder using SRA Run ID [`SRR8996103`](https://trace.ncbi.nlm.nih.gov/Traces/index.html?view=run_browser&acc=SRR8996103&display=metadata) for GEO Sample Name `GSM3743639` in GEO Accession [`GSE130567`](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE130567).
+
+```r
+downloadSrr(srrIDs = c("SRR9063863"), timeout = 3600 *12, OutDir = "./", multipleDownload = 1)
+```
 
 

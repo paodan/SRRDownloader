@@ -4,9 +4,11 @@
 \alias{searchProjectID}
 \title{Search SRR project accession ID using query}
 \usage{
-
-  searchProjectID(query = "IFN-γ selectively suppresses a subset of TLR4-activated genes and enhancers to potentiate macrophage activation",
-  timeout = 60)
+searchProjectID(
+ 
+    query = "IFN-\\u03b3 selectively suppresses a subset of TLR4-activated genes and enhancers to potentiate macrophage activation",
+  timeout = 60
+)
 }
 \arguments{
 \item{query}{character, the title or keywords to search in BioProject database
