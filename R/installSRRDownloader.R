@@ -1,10 +1,10 @@
 #' Instruction to install prerequisite softwares.
 #' @export
-#' @examples {
-#' \donotrun{
+#' @examples
+#' \dontrun{
 #' installSRRDownloader()
 #' }
-#' }
+#'
 installSRRDownloader = function(){
   cmd1 = system("which esearch", intern = TRUE)
   cmd2 = system("which fastq-dump", intern = TRUE)

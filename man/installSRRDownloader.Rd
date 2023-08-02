@@ -10,9 +10,8 @@ installSRRDownloader()
 Instruction to install prerequisite softwares.
 }
 \examples{
-{
-\donotrun{
+\dontrun{
 installSRRDownloader()
 }
-}
+
 }
