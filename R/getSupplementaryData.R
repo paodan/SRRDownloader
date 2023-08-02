@@ -2,7 +2,7 @@
 #' usually several .txt.gz (.csv.gz, .tab.gz) files or one .txt.gz (.csv.gz, .tab.gz) file.
 #' @param tarfile the name of supplementary .tar file
 #' @param sep the field separator character. Values on each line of the file are
-#' separated by this character. The default is "\t".
+#' separated by this character. The default is `\t`.
 #' @param header a logical value indicating whether the file contains the names
 #' of the variables as its first line. If missing, the value is determined from
 #' the file format: header is set to TRUE if and only if the first row contains

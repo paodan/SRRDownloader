@@ -11,7 +11,7 @@ readTarFile(tarfile, sep = "\\t", header = FALSE)
 \item{tarfile}{the name of supplementary .tar file}
 
 \item{sep}{the field separator character. Values on each line of the file are
-separated by this character. The default is "\t".}
+separated by this character. The default is `\t`.}
 
 \item{header}{a logical value indicating whether the file contains the names
 of the variables as its first line. If missing, the value is determined from
