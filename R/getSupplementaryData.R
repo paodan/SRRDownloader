@@ -52,6 +52,7 @@ readTarFile = function(tarfile, sep = "\t", header = FALSE){
 #' and `url`.
 #' @import rvest
 #' @importFrom tools file_ext
+#' @import xml2
 #' @export
 #' @examples
 #' \dontrun{

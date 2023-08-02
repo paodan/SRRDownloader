@@ -19,5 +19,6 @@ Imports:
     funcTools,
     rstudioapi,
     tools,
-    rvest
+    rvest,
+    xml2
 RoxygenNote: 7.1.1
