@@ -14,6 +14,8 @@ This package is to help you download gene expression or raw fastq files and meta
 if (!requireNamespace("devtools"))
  install.packages("devtools")
  
+
+devtools::install_github("paodan/funcTools")
 devtools::install_github("paodan/SRRDownloader")
 ```
 
