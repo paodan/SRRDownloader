@@ -9,6 +9,14 @@ Date: 2023-08-02
 
 This package is to help you download gene expression or raw fastq files and meta data (i.e. pheno data) from NCBI Gene Expression Omnibus (GEO) database.
 
+## Install SRRDownloader
+```r
+if (!requireNamespace("devtools"))
+ install.packages("devtools")
+ 
+devtools::install_github("paodan/SRRDownloader")
+```
+
 There are two types of gene expression data sets: (1) microarray; (2) RNA-seq.
 
 ## Microarray data
